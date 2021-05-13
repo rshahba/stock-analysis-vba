@@ -158,3 +158,10 @@ Sub formatAllStocksAnalysisTable()
 Next i
     
 End Sub
+Sub ClearWorksheet()
+
+Worksheets("All Stocks Analysis").Activate
+Range("A4: A15").Clear
+Range("B4: B15").Clear
+Range("C4: C15").Clear
+End Sub
