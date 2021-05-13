@@ -129,3 +129,32 @@ RowCount = Cells(Rows.Count, "A").End(xlUp).Row
     Next i
     
 End Sub
+
+Sub formatAllStocksAnalysisTable()
+
+'Formatting
+    Worksheets("All Stocks Analysis").Activate
+    Range("A3:C3").Font.Bold = True
+    Range("A3:C3").Borders(xlEdgeBottom).LineStyle = xlContinuous
+    Range("B4:B15").NumberFormat = "#,##0"
+    Range("C4:C15").NumberFormat = "0.00%"
+    Columns("B").AutoFit
+    
+    dataRowStart = 4
+    dataRowEnd = 15
+    
+    For i = dataRowStart To dataRowEnd
+         
+        If Cells(i, 3) > 0 Then
+        Cells(i, 3).Interior.Color = vbGreen
+        
+        ElseIf Cells(i, 3) < 0 Then
+        Cells(i, 3).Interior.Color = vbRed
+        
+        Else
+        Cells(i, 3).Interior.colour = xlNone
+        End If
+    
+Next i
+    
+End Sub
