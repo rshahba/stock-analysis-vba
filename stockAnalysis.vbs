@@ -1,3 +1,5 @@
+
+
 Sub DQAnalysis()
 
 Worksheets("DQ Analysis").Activate
@@ -60,8 +62,15 @@ End Sub
 
 Sub AllStocksAnalysis()
 
+Dim startTime As Single
+Dim endTime  As Single
+
+yearValue = InputBox("What year would you like to run the analysis on?")
+
+startTime = Timer
+
 Worksheets("All Stocks Analysis").Activate
-Range("A1").Value = "All Stocks (2018)"
+Range("A1").Value = "All Stocks (" + yearValue + ")"
 
 'Create a header row
 Cells(3, 1) = "Ticker"
@@ -86,7 +95,7 @@ Dim tickers(12) As String
 Dim startingPrice As Double
 Dim endingPrice As Double
 
-Worksheets("2018").Activate
+Sheets(yearValue).Activate
 RowCount = Cells(Rows.Count, "A").End(xlUp).Row
 
     'loop throught tickers
@@ -94,7 +103,7 @@ RowCount = Cells(Rows.Count, "A").End(xlUp).Row
     ticker = tickers(i)
         totalVolume = 0
         
-        Worksheets("2018").Activate
+        Sheets(yearValue).Activate
         'loop through rows
         For j = 2 To RowCount
         
@@ -127,7 +136,8 @@ RowCount = Cells(Rows.Count, "A").End(xlUp).Row
         Cells(4 + i, 2).Value = totalVolume
         Cells(4 + i, 3).Value = endingPrice / startingPrice - 1
     Next i
-    
+        endTime = Timer
+     MsgBox "This code ran in " & (endTime - startTime) & " seconds for the year " & (yearValue)
 End Sub
 
 Sub formatAllStocksAnalysisTable()
@@ -136,7 +146,7 @@ Sub formatAllStocksAnalysisTable()
     Worksheets("All Stocks Analysis").Activate
     Range("A3:C3").Font.Bold = True
     Range("A3:C3").Borders(xlEdgeBottom).LineStyle = xlContinuous
-    Range("B4:B15").NumberFormat = "#,##0"
+    Range("B4:B15").NumberFormat = "#,##"
     Range("C4:C15").NumberFormat = "0.00%"
     Columns("B").AutoFit
     
@@ -158,6 +168,7 @@ Sub formatAllStocksAnalysisTable()
 Next i
     
 End Sub
+
 Sub ClearWorksheet()
 
 Worksheets("All Stocks Analysis").Activate
@@ -165,3 +176,5 @@ Range("A4: A15").Clear
 Range("B4: B15").Clear
 Range("C4: C15").Clear
 End Sub
+
+
